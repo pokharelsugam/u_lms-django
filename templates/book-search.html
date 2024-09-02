@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %} Book Search {% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <h4 class="header">Please use search query like; &nbsp; "Book Name, Author, Category, Publisher or ISBN"</h4>
+    <h2 class="text-center">Book Search Results</h2>
+    <p class="query-result text-center">Book search results for "{{ query }}" are given below:</p>
+
+    <ol class="book-list list-group">
+        {% for book in books %}
+            <li class="list-group-item">
+                <a href="{% url 'book_get' book.id %}">{{ book.name }}</a>,
+                {% for author in book.author.all %}
+                    {{ author.name }}{% if not forloop.last %}, {% endif %}
+                {% endfor %},
+                {{ book.category.name }},
+                {{ book.publisher.name }},
+                {{ book.isbn }}
+            </li>
+        {% empty %}
+            <h3 class="no-results">No books were found! Please search by different query.</h3>
+        {% endfor %}
+    </ol>
+</div>
+
+    
+{% endblock %}

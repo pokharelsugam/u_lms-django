@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}User Profile{% endblock %}
+
+{% block content %}
+
+    <div class="container mt-5">
+        <h1 class="text-center">User Profile</h1>
+        <div class="card mt-4">
+            <div class="card-body">
+                <h5 class="card-title">User Information</h5>
+                <p class="card-text"><strong>Username:</strong> {{ user.username }}</p>
+                <p class="card-text"><strong>Email:</strong> {{ user.email }}</p>
+                <p class="card-text"><strong>First Name:</strong> {{ user.first_name }}</p>
+                <p class="card-text"><strong>Last Name:</strong> {{ user.last_name }}</p>
+                <p class="card-text"><strong>Phone Number:</strong> {{ user.phone_no }}</p>
+                {% if profile %}
+                    {% if user.is_teacher %}
+                        <h5 class="card-title">Teacher Information</h5>
+                        <p class="card-text"><strong>Employee ID:</strong> {{ profile.employee_id }}</p>
+                        <p class="card-text"><strong>Level:</strong> {{ profile.level }}</p>
+                        <p class="card-text"><strong>Class Name:</strong> {{ profile.class_name }}</p>
+                        <p class="card-text"><strong>Teacher Type:</strong> {{ profile.teacher_type }}</p>
+                        <p class="card-text"><strong>Employment Status:</strong> {{ profile.employment_status }}</p>
+                        <p class="card-text"><strong>Department:</strong> {{ profile.department }}</p>
+                        <p class="card-text"><strong>Subject:</strong> {{ profile.subject }}</p>
+                    {% elif user.is_student %}
+                        <h5 class="card-title">Student Information</h5>
+                        <p class="card-text"><strong>Registration Number:</strong> {{ profile.registration_no }}</p>
+                        <p class="card-text"><strong>Level:</strong> {{ profile.level }}</p>
+                        <p class="card-text"><strong>Year:</strong> {{ profile.year }}</p>
+                        <p class="card-text"><strong>Faculty:</strong> {{ profile.faculty }}</p>
+                    {% endif %}
+                {% endif %}
+
+                <h5 style="color:red;" > <i>Please contact to library Admin to edit or delete your information and profile </i> </h5>
+
+            </div>
+        </div>
+    </div>
+    {% endblock %}

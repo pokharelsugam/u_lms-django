@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Site{% endblock %}</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <!-- Header and Navigation Menu -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+        <a class="navbar-brand" href="/">e-Library</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link {% if request.path == '/' %}active{% endif %}" href="/">Home</a>
+                </li>
+                {% if user.is_authenticated %}
+                    {% if user.is_admin %}
+                        <!-- Admin-specific links -->
+                        <li class="nav-item"><a class="nav-link {% if request.path == '/book/' %}active{% endif %}" href="/book">Book</a></li>
+                        <li class="nav-item"><a class="nav-link {% if request.path == '/author/' %}active{% endif %}" href="/author">Author</a></li>
+                        <li class="nav-item"><a class="nav-link {% if request.path == '/category/' %}active{% endif %}" href="/category">Category</a></li>
+                        <li class="nav-item"><a class="nav-link {% if request.path == '/publisher/' %}active{% endif %}" href="/publisher">Publisher</a></li>
+                        <li class="nav-item"><a class="nav-link {% if request.path == '/language/' %}active{% endif %}" href="/language">Book Language</a></li>
+                    {% elif user.is_teacher %}
+                        <!-- Teacher-specific links -->
+                        <li class="nav-item"><a class="nav-link {% if request.path == '/book/' %}active{% endif %}" href="/book">Book</a></li>
+                        <li class="nav-item"><a class="nav-link {% if request.path == '/author/' %}active{% endif %}" href="/author">Author</a></li>
+                        <li class="nav-item"><a class="nav-link {% if request.path == '/category/' %}active{% endif %}" href="/category">Category</a></li>
+                        <li class="nav-item"><a class="nav-link {% if request.path == '/publisher/' %}active{% endif %}" href="/publisher">Publisher</a></li>
+                        <li class="nav-item"><a class="nav-link {% if request.path == '/language/' %}active{% endif %}" href="/language">Book Language</a></li>
+                    {% elif user.is_student %}
+                        <!-- Student-specific links -->
+                        <li class="nav-item"><a class="nav-link {% if request.path == '/book/' %}active{% endif %}" href="/book">Book</a></li>
+                        <li class="nav-item"><a class="nav-link {% if request.path == '/author/' %}active{% endif %}" href="/author">Author</a></li>
+                        <li class="nav-item"><a class="nav-link {% if request.path == '/category/' %}active{% endif %}" href="/category">Category</a></li>
+                        <li class="nav-item"><a class="nav-link {% if request.path == '/publisher/' %}active{% endif %}" href="/publisher">Publisher</a></li>
+                        <li class="nav-item"><a class="nav-link {% if request.path == '/language/' %}active{% endif %}" href="/language">Book Language</a></li>
+                    {% endif %}
+                {% endif %}
+            </ul>
+
+            <ul class="navbar-nav ml-auto">
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout_universal' %}">Logout</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.path == '/user/login/' %}active{% endif %}" href="{% url 'login_universal' %}">Login</a>
+                    </li>
+                {% endif %}
+            </ul>
+            <form class="form-inline ml-auto" method="GET" action="{% url 'book_search' %}">
+                <input class="form-control mr-sm-2" type="search" name="query" placeholder="Search Book . . ." aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container-fluid container-no-margin mt-4">
+        {% block content %}{% endblock %}
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer mt-auto py-3 sticky-bottom">
+        <div class="container text-center">
+            <div class="footer-menu">
+                {% if user.is_authenticated %}
+                    {% if user.is_admin %}
+                        <a href="{% url 'profile' %}" class="{% if request.path == '/user/profile/' %}active{% endif %}">{{ user.first_name }} {{ user.last_name }}</a> | 
+                        <a href="/admin" class="{% if request.path == '/admin/' %}active{% endif %}">Admin</a> |
+                        <a href="{% url 'register_teacher' %}" class="{% if request.path == '/user/register/teacher/' %}active{% endif %}">Register Teacher</a> |
+                        <a href="{% url 'register_student' %}" class="{% if request.path == '/user/register/student/' %}active{% endif %}">Register Student</a> |
+                    {% elif user.is_teacher %}
+                        <a href="{% url 'profile' %}" class="{% if request.path == '/user/profile/' %}active{% endif %}">{{ user.first_name }} {{ user.last_name }}</a> | 
+                    {% elif user.is_student %}
+                        <a href="{% url 'profile' %}" class="{% if request.path == '/user/profile/' %}active{% endif %}">{{ user.first_name }} {{ user.last_name }}</a> |   
+                    {% endif %}
+                {% endif %}    
+
+            </div>
+            <span class="text-muted"> <a href = "https://github.com/pokharelsugam"> &copy; {% now "Y" %}  Sugam Pokharel</a>. All rights reserved.</span> | 
+            <a href="{% url 'home' %}" class="{% if request.path == '/book/' %}active{% endif %}">Privacy Policy</a> | 
+            <a href="{% url 'book_list' %}" class="{% if request.path == '/book/' %}active{% endif %}">Terms of Service</a>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

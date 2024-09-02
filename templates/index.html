@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %} Home {% endblock %}
+
+{% block content %}
+
+    <!-- Login-Logout  Message -->
+    {% if messages %}
+    <div class="mt-3">
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    <!-- ..................... -->
+
+    <h1 class="text-center mb-4">e-Library</h1>
+
+<div class="text-center">
+    <img src="static/images/LMS_Banner.jpg" alt="Library management system" class="img-fluid">
+</div>
+
+<div> 
+    <h2>Recently Added Book</h2>
+    <table class="table table-bordered w-99"> <!-- tr: table row, th: table head, td: table data -->
+        <thead>
+            <tr> <!-- table row -->
+                <th scope="col">Book Name</th> <!-- table head -->
+                <th scope="col">Book Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in new_books %} <!--the key 'new_books' which carry objects are iterated in book-->
+                <tr>
+                    <td><a href="{% url 'book_get' book.id %}">{{ book.name }}</a></td> <!-- Display book name show book_get urls using clickable id -->
+                    <td>{{ book.description|truncatechars:256 }}</td> <!--Show book description of 256 characters-->
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

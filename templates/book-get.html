@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}Book Details{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <!-- Book CRUD  Message -->
+{% if messages %}
+<div class="mt-3">
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+</div>
+{% endif %}
+<!-- ..................... -->
+
+    <div class="row">
+        <!-- Book Details -->
+        <div class="col-md-12 offset-md-0">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">{{ book.name }}</h3>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Book Details</h5>
+                    <p><strong>Authors:</strong> 
+                        {% for author in book.author.all %}
+                            {{ author.name }}{% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    </p>
+                    <p><strong>Category:</strong> {{ book.category.name }}</p>
+                    <p><strong>Edition:</strong> {{ book.edition }}</p>
+                    <p><strong>Publisher:</strong> {{ book.publisher.name }}</p>
+                    <p><strong>Publication Year:</strong> {{ book.publication_year }}</p>
+                    <p><strong>ISBN:</strong> {{ book.isbn }}</p>
+                    <p><strong>Language:</strong> {{ book.language.name }}</p>
+                    <p><strong>Pages:</strong> {{ book.pages }}</p>
+                    <p><strong>Description:</strong> {{ book.description }}</p>
+                </div>
+                <div class="card-footer text-left d-flex justify-content-between">
+                    <a href="{{ book.book_file.url }}" class="btn btn-primary" target="_blank">Read Book</a>
+                    <a href="{% url 'book_download' pk=book.id %}" class="btn btn-primary">Download Book</a>
+                    <a href="{% url 'book_list' %}" class="btn btn-secondary ms-2">Back</a>
+                    {% if user.is_admin %}
+                        <a href="{% url 'book_edit' pk=book.id %}" class="btn btn-warning">Edit</a>
+                        <a href="{% url 'book_delete' pk=book.id %}" class="btn btn-danger">Delete</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

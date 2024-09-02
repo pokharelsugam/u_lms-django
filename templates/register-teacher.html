@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+
+{% block title %} Teacher Registration {% endblock %}
+
+{% block content %}
+
+    <div class="container mt-5">
+
+     <!-- Registration  Message -->
+     {% if messages %}
+     <div class="mt-3">
+         {% for message in messages %}
+             <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+         {% endfor %}
+     </div>
+     {% endif %}
+ 
+     <!-- Registration  Form -->
+
+        <h1 class="text-center mb-4">Teacher Registration</h1>
+        <form method="POST" class="needs-validation" novalidate>
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label for="username" class="form-label">Username:</label>
+                <input type="text" name="username" id="username" class="form-control" required>
+                <div class="invalid-feedback">Please enter a username.</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="email" class="form-label">Email:</label>
+                <input type="email" name="email" id="email" class="form-control" required>
+                <div class="invalid-feedback">Please enter a valid email address.</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="phone_no" class="form-label">Phone Number:</label>
+                <input type="tel" name="phone_no" id="phone_no" class="form-control" required>
+                <div class="invalid-feedback">Please enter a phone number.</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="password" class="form-label">Password:</label>
+                <input type="password" name="password" id="password" class="form-control" required>
+                <div class="invalid-feedback">Please enter a password.</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="first_name" class="form-label">First Name:</label>
+                <input type="text" id="first_name" name="first_name" class="form-control" required>
+                <div class="invalid-feedback">Please enter your first name.</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="last_name" class="form-label">Last Name:</label>
+                <input type="text" id="last_name" name="last_name" class="form-control" required>
+                <div class="invalid-feedback">Please enter your last name.</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="employee_id" class="form-label">Employee ID:</label>
+                <input type="text" name="employee_id" id="employee_id" class="form-control" required>
+                <div class="invalid-feedback">Please enter an employee ID.</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="level" class="form-label">Level:</label>
+                <input type="text" name="level" id="level" class="form-control" required>
+                <div class="invalid-feedback">Please enter a level.</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="class_name" class="form-label">Class Name:</label>
+                <input type="text" name="class_name" id="class_name" class="form-control" required>
+                <div class="invalid-feedback">Please enter a class name.</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="teacher_type" class="form-label">Teacher Type:</label>
+                <input type="text" name="teacher_type" id="teacher_type" class="form-control" required>
+                <div class="invalid-feedback">Please enter a teacher type.</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="employment_status" class="form-label">Employment Status:</label>
+                <input type="text" name="employment_status" id="employment_status" class="form-control" required>
+                <div class="invalid-feedback">Please enter an employment status.</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="department" class="form-label">Department:</label>
+                <input type="text" name="department" id="department" class="form-control" required>
+                <div class="invalid-feedback">Please enter a department.</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="subject" class="form-label">Subject:</label>
+                <input type="text" name="subject" id="subject" class="form-control" required>
+                <div class="invalid-feedback">Please enter a subject.</div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Register</button>
+        </form>
+    </div>
+
+    <script>
+        (function () {
+            'use strict'
+            const forms = document.querySelectorAll('.needs-validation')
+            Array.from(forms).forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+                    form.classList.add('was-validated')
+                }, false)
+            })
+        })()
+    </script>
+{% endblock %}

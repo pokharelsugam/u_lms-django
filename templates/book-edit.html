@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block title %} Book Edit {% endblock %}
+
+{% block content %}
+  
+  <div class="container mt-4">
+    <h1 class="mb-4">Edit Book</h1>
+    
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" name="name" class="form-control" id="name" value="{{ book.name }}" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="author">Author</label>
+            <select name="author" class="form-control" id="author" multiple required>
+                {% for author in authors %}
+                    <option value="{{ author.id }}" {% if author in book.author.all %} selected {% endif %}>{{ author.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="category">Category</label>
+            <select name="category" class="form-control" id="category" required>
+                {% for category in categories %}
+                    <option value="{{ category.id }}" {% if category.id == book.category_id %} selected {% endif %}>{{ category.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="edition">Edition</label>
+            <input type="text" name="edition" class="form-control" id="edition" value="{{ book.edition }}" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="publisher">Publisher</label>
+            <select name="publisher" class="form-control" id="publisher" required>
+                {% for publisher in publishers %}
+                    <option value="{{ publisher.id }}" {% if publisher.id == book.publisher_id %} selected {% endif %}>{{ publisher.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="publication_year">Publication Year</label>
+            <input type="text" name="publication_year" class="form-control" id="publication_year" value="{{ book.publication_year }}" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="isbn">ISBN</label>
+            <input type="text" name="isbn" class="form-control" id="isbn" value="{{ book.isbn }}" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="language">Language</label>
+            <select name="language" class="form-control" id="language" required>
+                {% for language in languages %}
+                    <option value="{{ language.id }}" {% if language.id == book.language_id %} selected {% endif %}>{{ language.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="pages">Pages</label>
+            <input type="text" name="pages" class="form-control" id="pages" value="{{ book.pages }}" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea name="description" class="form-control" id="description" rows="4" required>{{ book.description }}</textarea>
+        </div>
+        
+        <div class="d-flex justify-content-between">
+            <button type="submit" class="btn btn-primary">Save Change</button>
+            <a href="{% url 'book_list' %}" class="btn btn-secondary ms-2">Cancel</a>
+        </div>
+    </form>
+  </div>
+
+{% endblock %}

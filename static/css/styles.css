@@ -1,0 +1,53 @@
+/* for navbar font style  */
+.nav-item {
+  font-weight: bold;
+}
+
+/* for to manage width of main container  */
+
+.container-no-margin {
+  margin-left: 10px !important;
+  margin-right: 10px !important;
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+}
+
+/* for footer */
+.footer {
+  background-color: #f1f1f1;
+  padding: 20px;
+  text-align: center;
+}
+
+.footer-menu a {
+  color: #007bff;
+  text-decoration: none;
+  margin: 0 10px;
+}
+
+.footer-menu a:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+.footer-menu a.active {
+  color: #004085;
+  font-weight: bold;
+}
+
+/* for search result */
+
+.header {
+  text-align: center;
+  color: blue;
+  margin-bottom: 30px;
+}
+.no-results {
+  color: red;
+  font-size: 2.5em;
+  text-align: center;
+}
+.book-list li {
+  margin-bottom: 10px;
+  font-size: 1.2em;
+} 

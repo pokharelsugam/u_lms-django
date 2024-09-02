@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %} Books {% endblock %}
+
+{% block content %}
+
+<!-- Book CRUD  Message -->
+{% if messages %}
+<div class="mt-3">
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+</div>
+{% endif %}
+<!-- ..................... -->
+
+  
+  <!-- This section will only be visible to admin and teachers -->
+  {% if user.is_admin %}
+      <div class="text-center p-2">
+          <h3>Click <a href="{% url 'book_add' %}">Here</a> to add a new book</h3>
+      </div>
+  {% endif %}
+
+  <h1 class="text-center mb-4">Book List</h1>
+  <div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Book Code</th>
+            <th scope="col">Book Name</th>
+            <th scope="col">Author</th>
+            <th scope="col">Category</th>
+            <th scope="col">Edition</th>
+            <th scope="col">Publisher</th>
+            <th scope="col">Year</th>
+            <th scope="col">Description</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for book in books %} <!--books is key which carry objects of Book database to iterate in book-->
+          
+          <tr>
+              <td>{{ book.id }}</td>
+              <td>{{ book.name|truncatechars:40 }}</td>
+              <td>
+                {% for author in book.author.all %} <!--iterates over all authors related to a particular book-->
+                    {{ author.name }}{% if not forloop.last %}, {% endif %} <!--If it is not the last iteration, a comma is added after the author's name-->
+                {% endfor %}
+              </td>
+              <td>{{ book.category.name }}</td> <!--show name of category of book-->
+              <td>{{ book.edition }}</td>
+              <td>{{ book.publisher.name }}</td>
+              <td>{{ book.publication_year }}</td>
+              <td>{{ book.description|truncatechars:75 }}</td>
+              <td><a href="{% url 'book_get' pk=book.id %}" type="button" class="btn btn-primary btn-sm">Get</a></td> <!--pass book id in pk variable to book_get view-->
+          </tr>
+          {% endfor %}
+          
+        </tbody>
+      </table>
+  </div>
+{% endblock %}
