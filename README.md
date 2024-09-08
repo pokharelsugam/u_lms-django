@@ -44,7 +44,7 @@ Coming Soon
    </code></pre>   
 6. Clone the repository
    <pre><code>
-   git clone https://github.com/pokharelsugam/elibrary-django.git
+   git clone https://github.com/pokharelsugam/u_elibrary-django.git
    cd elibrary-django
    </code></pre>
 8. Create a virtual environment and activate it.
