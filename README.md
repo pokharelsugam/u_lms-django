@@ -1,6 +1,6 @@
 # Django User Based Library Management System
 
-A comprehensive user based Library Management System built with Django. This project includes functionalities for managing books, authors, categories, publishers, and languages. It also features search functionalities to easily find books based on various criteria.
+A comprehensive user based Library Management System built with Django and SQLite3 or PostgreSQL. This project includes functionalities for managing books, authors, categories, publishers, and languages. It also features search functionalities to easily find books based on various criteria.
 
 ## Features
 
@@ -42,28 +42,28 @@ Coming Soon
    <pre><code>
    pip install virtualenv
    </code></pre>   
-6. Clone the repository
+5. Clone the repository
    <pre><code>
    git clone https://github.com/pokharelsugam/u_elibrary-django.git
    cd elibrary-django
    </code></pre>
-8. Create a virtual environment and activate it.
+6. Create a virtual environment and activate it.
    <pre><code>
    virtualenv env
    env\scripts\activate
    pip install django
    pip install django-phonenumber-field
    </code></pre>
-10. Run the migrations
+7. Run the migrations
     <pre><code>
     python manage.py makemigrations #may or may not be required
     python manage.py migrate	#must be required
     </code></pre>
-12. Create a superuser
+8. Create a superuser
     <pre><code>
     python manage.py createsuperuser
     </code></pre>
-14. Start the development server
+9. Start the development server
     <pre><code>
     python manage.py runserver
     </code></pre>
@@ -76,3 +76,34 @@ Coming Soon
 <li>Use the navigation bar to add and view books, authors, categories, publishers, and languages.</li>
 <li>Use the search functionality to find books based on various criteria.</li>
 </ul>
+
+## Use PostgreSQL instead of SQLite3 Database
+- Do the following things before migration/creating SQLite3 Database
+1. PostgreSQL
+   - Create New Server named as postgre_elibrary-django with
+   - HOST : localhost
+   - Password: Created duiring PostgreSQL software
+   - Goto 'Login/Group Roles()'
+   - Create 'Login/Group Role'
+   - General → name → 'username_for_database'
+   - Defination → password → 'password_for_database'
+   - Privilages → Can Login → 'Yes'
+   - Save
+   - Goto Database()
+   - Database → Create → 'Database'
+   - General → Database → 'database_name', Owner → 'username_of_database'
+   - Save
+2. Modify Database Setting in 'settings.py' of Django
+   <pre><code>
+   DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'database_name',
+        'USER': 'username_of_database',
+        'PASSWORD': 'password_of_database',
+        'HOST': 'localhost',
+        'PORT': '5432', 
+      }
+   }
+   </code></pre>
+
