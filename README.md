@@ -80,6 +80,18 @@ Coming Soon
 ## Use PostgreSQL instead of SQLite3 Database
 - Do the following things before migration/creating SQLite3 Database
 1. PostgreSQL
+   - Install PostgreSQL in Computer, Download Link : https://www.postgresql.org/download/
+   - For windows
+   - Goto 'Edit the system environment variables'→ Environment Variables → System variables → Path → Edit → New → C:\Program Files\PostgreSQL\<version>\bin\ 
+   - Test installation by command
+     <pre><code>
+           psql --version
+     </code></pre> 
+   - Install psycopg2. Use following code for that
+     <pre><code>
+           pip install psycopg2
+     </code></pre>
+   - Goto pgAdmin 4 app
    - Create New Server named as postgre_elibrary-django with
    - HOST : localhost
    - Password: Created duiring PostgreSQL software
